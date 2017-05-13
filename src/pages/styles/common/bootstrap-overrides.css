@@ -1,0 +1,67 @@
+/* Bootstrap overrides */
+
+.container-fluid {
+    position: relative;
+    width: 100%;
+    color: #e0e0e0;
+    padding: .5em;
+    border-radius: 3px;
+    background-color: #5d5050;
+    margin: 0 auto;
+    min-height: 34px;
+}
+.container-fluid + .container-fluid {
+    margin-top: .25em;
+}
+
+.container-fluid legend {
+    color: #ededed;
+    margin-bottom: .5em;
+}
+
+.container-fluid input {
+    color: #333;
+}
+
+.container-fluid h3 {
+    margin: 0;
+}
+.container-fluid.u-light {
+    background-color: #e0e0e0;
+    color: #5d5050;
+}
+.container-fluid.u-error {
+    color: #d9534f;
+}
+
+.btn + .btn {
+    margin-left: .25em;
+}
+
+.btn-on {
+    background-color: #fff;
+    border-color: #eee;
+    color: #292222;
+}
+
+.btn-off {
+    background-color: #000;
+    border-color: #111;
+    color: #e3dddd;
+}
+
+.btn-on:hover,
+.btn-on:active,
+.btn-on:focus,
+.btn-on:active:focus {
+    background-color: #eee;
+    border-color: #eee;
+}
+
+.btn-off:hover,
+.btn-off:active,
+.btn-off:focus,
+.btn-off:active:focus {
+    background-color: #111;
+    border-color: #111;
+}
