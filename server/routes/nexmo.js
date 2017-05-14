@@ -176,6 +176,20 @@ Reply 'Y' for ${issue.options.find(el => el.key === '+').value}, 'N' for ${issue
             if (params.text.length === 5 && !Number.isNaN(Number(params.text))) {
                 getZipCode(params.text, params.msisdn, app);
             }
+
+            const lowerText = params.text.toLowerCase();
+            if (lowerText === 'n' || lowerText === 'y') {
+                app.nexmo.message.sendSms(
+                    '12035338311', params.msisdn, 'Thanks for helping to make some bacon!\n\nCheck out how your representatives voted at http://trumpthepigs.com', {type: 'unicode'},
+                    (err, responseData) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            //console.dir(responseData);
+                        }
+                    }
+                )
+            }
             let incomingData = {
                 messageId: params.messageId,
                 from: params.msisdn,
