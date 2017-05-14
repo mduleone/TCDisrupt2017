@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - include:
+    file: create_ext_citext.yml
+    relativeToChangelogFile: true
+  - include:
+    file: add_reps_table.yml
+    relativeToChangelogFile: true
+  - include:
+    file: add_issues_table.yml
+    relativeToChangelogFile: true
+  - include:
+    file: add_users_table.yml
+    relativeToChangelogFile: true
+  - include:
+    file: add_rep_issue_vote_table.yml
+    relativeToChangelogFile: true
+  - include:
+    file: add_user_issue_reactions_table.yml
+    relativeToChangelogFile: true

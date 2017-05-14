@@ -13,7 +13,14 @@ basePath: /
 produces:
   - application/json
 paths:
-  /rep/{repId}/reportcard:
+  /representatives:
+    get:
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Representatives"
+  /representatives/{repId}/reportcard:
     get:
       parameters:
         - $ref: '#/parameters/pathRepId'
@@ -23,16 +30,16 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/ReportCard'
-  /bill/{billId}/react:
+  /issues/{issueId}/react:
     post:
       parameters:
-        - $ref: '#/parameters/pathBillId'
+        - $ref: '#/parameters/pathIssueId'
         - $ref: '#/parameters/bodyReaction'
       responses:
         200:
           description: OK
           schema:
-            $ref: '#/definitions/Bill'
+            $ref: '#/definitions/Issue'
 
 parameters:
   pathRepId:
@@ -49,8 +56,8 @@ parameters:
     required: true
     type: string
     format: uuid
-  pathBillId:
-    name: billId
+  pathIssueId:
+    name: issueId
     in: path
     description: whattaboot?
     required: true
@@ -62,7 +69,7 @@ parameters:
     description: payload
     required: true
     schema:
-      $ref: "#/definitions/BillVoteUserReaction"
+      $ref: "#/definitions/IssueVoteUserReaction"
 
 definitions:
   Representative:
@@ -102,7 +109,11 @@ definitions:
       nextElectionDate:
         type: string
         format: date
-  Bill:
+  Representatives:
+    type: array
+    items:
+      $ref: "#/definitions/Representative"
+  Issue:
     type: object
     properties:
       id:
@@ -117,20 +128,19 @@ definitions:
         enum:
           - passed
           - failed
-      name:
+      externalLink:
         type: string
-        enum:
-         - gun-rights
+        format: url
       voteDate:
         type: string
         format: date
-  RepBillVote:
+  RepIssueVote:
     type: object
     properties:
       id:
         type: string
         format: uuid
-      billId:
+      issueId:
         type: string
         format: uuid
       repId:
@@ -150,43 +160,44 @@ definitions:
         format: uuid
       phoneNumber:
         type: string
-  BillVoteUserReaction:
+  IssueVoteUserReaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        issueId:
+          type: string
+          format: uuid
+        vote:
+          type: string
+          enum:
+            - true
+            - false
+            - null
+          description: This is boolean and nullable, type string is so swagger does not break
+        importance:
+          type: number
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+  FlatIssueVoteReaction:
     type: object
     properties:
-      id:
-        type: string
-        format: uuid
-      userId:
-        type: string
-        format: uuid
-      billId:
-        type: string
-        format: uuid
-      vote:
-        type: string
-        enum:
-          - Yay
-          - Nay
-          - Abstain
-      importance:
-        type: number
-        enum:
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-  FlatBillVoteReaction:
-    type: object
-    properties:
-      bill:
-        $ref: '#/definitions/Bill'
+      issue:
+        $ref: '#/definitions/Issue'
       repVote:
-        $ref: '#/definitions/RepBillVote'
-      billVoteReation:
-        $ref: '#/definitions/BillVoteUserReaction'
+        $ref: '#/definitions/RepIssueVote'
+      userReation:
+        $ref: '#/definitions/IssueVoteUserReaction'
   ReportCard:
     type: object
     properties:
@@ -222,5 +233,5 @@ definitions:
       repBillVotes:
         type: array
         items:
-          $ref: '#/definitions/FlatBillVoteReaction'
+          $ref: '#/definitions/FlatIssueVoteReaction'
 

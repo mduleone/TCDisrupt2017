@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - logicalFilePath: _build/migrations/changeLogs/add_rep_issue_vote_table.yml
+
+  - changeSet:
+    id: create_type_vote_enum
+    author: jviolago
+    changes:
+      - sql: CREATE TYPE vote_enum AS ENUM ('Yay','Nay','Abstain')
+
+  - changeSet:
+    id: add_rep_issue_vote_table
+    author: jviolago
+    changes:
+      - createTable:
+        columns:
+        - column:
+          name: id
+          type: uuid
+          constraints:
+            nullable: false
+            primaryKey: true
+        - column:
+          name: issueId
+          type: uuid
+          constraints:
+            nullable: false
+        - column:
+          name: repId
+          type: uuid
+          constraints:
+            nullable: false
+        - column:
+          name: vote
+          type: vote_enum
+          constraints:
+            nullable: false
+        tableName: rep_issue_votes
