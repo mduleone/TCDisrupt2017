@@ -5,7 +5,7 @@ const util = require('util')
 function apiRoutes(app) {
     const routes = new Router()
 
-    app.get('/senate', (req, res) => {
+    routes.get('/senate', (req, res) => {
         // Docs for interacting with the `Client` object: https://github.com/brianc/node-postgres/wiki/Client
 
         console.log("userId: " + req.query.userId)
@@ -26,7 +26,7 @@ function apiRoutes(app) {
         })
     });
 
-    app.get('/senate/:repId/reportcard', (req, res) => {
+    routes.get('/senate/:repId/reportcard', (req, res) => {
         // Docs for interacting with the `Client` object: https://github.com/brianc/node-postgres/wiki/Client
         //
         console.log(req.params.userId)
@@ -75,7 +75,7 @@ function apiRoutes(app) {
         })
     });
 
-    app.get('/senate/issues', (req, res) => {
+    routes.get('/senate/issues', (req, res) => {
         // Docs for interacting with the `Client` object: https://github.com/brianc/node-postgres/wiki/Client
 
         console.log("userId: " + req.query.userId)
@@ -96,7 +96,7 @@ function apiRoutes(app) {
         })
     });
 
-    app.get('/house', (req, res) => {
+    routes.get('/house', (req, res) => {
         // Docs for interacting with the `Client` object: https://github.com/brianc/node-postgres/wiki/Client
         //
         console.log("userId: " + req.query.userId)
@@ -117,14 +117,14 @@ function apiRoutes(app) {
         })
     });
 
-    app.get('/house/:repId/reportcard', (req, res) => {
+    routes.get('/house/:repId/reportcard', (req, res) => {
         // Docs for interacting with the `Client` object: https://github.com/brianc/node-postgres/wiki/Client
         //
         console.log(req.params.userId)
         return res.status(200).json({'status': 'ok'})
     });
 
-    app.get('/house/issues', (req, res) => {
+    routes.get('/house/issues', (req, res) => {
         // Docs for interacting with the `Client` object: https://github.com/brianc/node-postgres/wiki/Client
 
         console.log("userId: " + req.query.userId)
@@ -145,7 +145,7 @@ function apiRoutes(app) {
         })
     });
 
-    app.get('/representatives', (req, res) => {
+    routes.get('/representatives', (req, res) => {
         // Docs for interacting with the `Client` object: https://github.com/brianc/node-postgres/wiki/Client
         //
         var chamber = req.query.chamber
@@ -155,7 +155,7 @@ function apiRoutes(app) {
         return res.status(200).json({'status': 'ok'})
     });
 
-    app.get('/issues', (req, res) => {
+    routes.get('/issues', (req, res) => {
         // Docs for interacting with the `Client` object: https://github.com/brianc/node-postgres/wiki/Client
         //
         var chamber = req.query.chamber
@@ -165,7 +165,7 @@ function apiRoutes(app) {
         return res.status(200).json({'status': 'ok'})
     });
 
-    app.post('/issue/:issueId/react', (req, res) => {
+    routes.post('/issue/:issueId/react', (req, res) => {
         // Docs for interacting with the `Client` object: https://github.com/brianc/node-postgres/wiki/Client
         //
         console.log(req.params.issueId)
