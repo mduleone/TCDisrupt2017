@@ -20,7 +20,7 @@ export default class Layout extends Component {
         return (
             <div id="app-container">
                 <CommonStyles />
-                <AppBar title="Pierce The Veil"
+                <AppBar title="Trump The Pigs"
                         onLeftIconButtonTouchTap={this.toggleMenu} />
                 <Drawer className="nav-bar"
                         docked={false}
