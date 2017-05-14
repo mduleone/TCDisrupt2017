@@ -20,7 +20,7 @@ class RoutesContainer extends Component {
                     <Route path="/house" component={House} />
                     <Route path="/state/nj" component={StateNj} />
                     <Route path="/about" component={About} />
-                    <Route path="/issue/:issueId" component={Issue} />
+                    <Route path="/issue/:chamber/:issueId" component={Issue} />
                     <Route path="/report/:legislator" component={Report} />
                 </Switch>
             </Layout>
