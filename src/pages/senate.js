@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {get} from '../api/common';
 import {Tabs, Tab} from 'material-ui/Tabs'
 import {
     Table,
@@ -14,44 +16,30 @@ import {Link} from 'react-router-dom';
 import './styles/senate.css';
 
 class SenatePage extends Component {
-    render() {
-        const someSenators = [
-            {
-                "state": "nj",
-                "name": "John Doe",
-                "grade": 33.3,
-                "party": "R"
-            }, {
-                "state": "nj",
-                "name": "Mary Sew",
-                "grade": 88.8,
-                "party": "D"
-            }, {
-                "state": "nj",
-                "name": "Tony Danza",
-                "grade": 28.6,
-                "party": "R"
-            }
-        ];
+    componentDidMount() {
+        get('http://localhost:3001/api/senate?userId=1234')
+            .then(reps => {
+                console.log(reps);
+                this.setState({reps});
+            });
+        get('http://localhost:3001/api/senate/issues?userId=1234')
+            .then(issues => {
+                console.log(issues);
+                this.setState({issues});
+            });
+    }
 
-        const someIssues = [
-            {
-                "date": "2017-03-30",
-                "issue": "HR-124",
-                "question": "If all the raindrops were gum drops and lemon drops, oh what a world that would be!",
-                "result": "Confirmed"
-            }, {
-                "date": "2017-03-30",
-                "issue": "HR-224",
-                "question": "If all the raindrops were gum drops and lemon drops, oh what a world that would be!",
-                "result": "Confirmed"
-            }, {
-                "date": "2017-03-30",
-                "issue": "HR-324",
-                "question": "If all the raindrops were gum drops and lemon drops, oh what a world that would be!",
-                "result": "Confirmed"
-            }
-        ];
+    static contextTypes = {
+        router: PropTypes.object,
+    };
+
+    render() {
+        const reps = (this.state && this.state.reps) ? this.state.reps : [];
+        console.log('reps', reps);
+
+        const issues = (this.state && this.state.issues) ? this.state.issues: [];
+        console.log('issues', issues);
+
         return (
             <div className="App">
                 <div className="App-header">
@@ -70,11 +58,11 @@ class SenatePage extends Component {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody displayRowCheckbox={false}>
-                                    {someSenators.map( (rep) => {
+                                    {reps.map( (rep) => {
                                         return (
-                                            <TableRow className={(rep.party === 'R') ? 'row-republican' : 'row-democrat'}>
+                                            <TableRow key={rep.id} className={(rep.party === 'Republican') ? 'row-republican' : 'row-democrat'}>
                                                 <TableRowColumn>{rep.state}</TableRowColumn>
-                                                <TableRowColumn>{rep.name}</TableRowColumn>
+                                                <TableRowColumn>{rep.displayName}</TableRowColumn>
                                                 <TableRowColumn>{rep.grade}</TableRowColumn>
                                             </TableRow>
                                         );
@@ -95,16 +83,14 @@ class SenatePage extends Component {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody displayRowCheckbox={false}>
-                                    {someIssues.map( (issue) => {
+                                    {issues.map( (issue) => {
                                         return (
-                                            <Link to={`/issue/${issue.issue}`}>
-                                                <TableRow>
-                                                    <TableRowColumn>{issue.date}</TableRowColumn>
-                                                    <TableRowColumn>{issue.issue}</TableRowColumn>
-                                                    <TableRowColumn>{issue.question}</TableRowColumn>
-                                                    <TableRowColumn>{issue.result}</TableRowColumn>
-                                                </TableRow>
-                                            </Link>
+                                            <TableRow key={issue.id}>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/senate/${issue.id}`}>{issue.voteDate}</Link></TableRowColumn>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/senate/${issue.id}`}>{issue.id}</Link></TableRowColumn>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/senate/${issue.id}`}>{issue.question}</Link></TableRowColumn>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/senate/${issue.id}`}>{issue.result}</Link></TableRowColumn>
+                                            </TableRow>
                                         );
                                     })}
                                 </TableBody>
@@ -112,7 +98,7 @@ class SenatePage extends Component {
                     </Tab>
                 </Tabs>
                 {/*<p className="App-intro">*/}
-                    {/*This is page is all about the senate.*/}
+                {/*This is page is all about the senate.*/}
                 {/*</p>*/}
                 <pre>/senate</pre>
             </div>
