@@ -9,17 +9,17 @@ class IssuePage extends Component {
             {
                 "date": "2017-03-30",
                 "issue": "HR-124",
-                "question": "If all the raindrops were gum drops and lemon drops, oh what a world that would be!",
+                "question": "What if all the raindrops were gum drops and lemon drops?",
                 "result": "Confirmed"
             }, {
                 "date": "2017-03-30",
                 "issue": "HR-224",
-                "question": "If all the raindrops were gum drops and lemon drops, oh what a world that would be!",
+                "question": "What's the difference between a chicken?",
                 "result": "Confirmed"
             }, {
                 "date": "2017-03-30",
                 "issue": "HR-324",
-                "question": "If all the raindrops were gum drops and lemon drops, oh what a world that would be!",
+                "question": "In your opinion, how much does an orange?",
                 "result": "Confirmed"
             }
         ];

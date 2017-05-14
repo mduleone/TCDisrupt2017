@@ -38,17 +38,17 @@ class SenatePage extends Component {
             {
                 "date": "2017-03-30",
                 "issue": "HR-124",
-                "question": "If all the raindrops were gum drops and lemon drops, oh what a world that would be!",
+                "question": "What if all the raindrops were gum drops and lemon drops?",
                 "result": "Confirmed"
             }, {
                 "date": "2017-03-30",
                 "issue": "HR-224",
-                "question": "If all the raindrops were gum drops and lemon drops, oh what a world that would be!",
+                "question": "What's the difference between a chicken?",
                 "result": "Confirmed"
             }, {
                 "date": "2017-03-30",
                 "issue": "HR-324",
-                "question": "If all the raindrops were gum drops and lemon drops, oh what a world that would be!",
+                "question": "In your opinion, how much does an orange?",
                 "result": "Confirmed"
             }
         ];
@@ -72,7 +72,7 @@ class SenatePage extends Component {
                                 <TableBody displayRowCheckbox={false}>
                                     {someSenators.map( (rep) => {
                                         return (
-                                            <TableRow className={(rep.party === 'R') ? 'row-republican' : 'row-democrat'}>
+                                            <TableRow key={rep.name} className={(rep.party === 'R') ? 'row-republican' : 'row-democrat'}>
                                                 <TableRowColumn>{rep.state}</TableRowColumn>
                                                 <TableRowColumn>{rep.name}</TableRowColumn>
                                                 <TableRowColumn>{rep.grade}</TableRowColumn>
@@ -97,7 +97,7 @@ class SenatePage extends Component {
                                 <TableBody displayRowCheckbox={false}>
                                     {someIssues.map( (issue) => {
                                         return (
-                                            <Link to={`/issue/${issue.issue}`}>
+                                            <Link key={issue.issue} to={`/issue/${issue.issue}`}>
                                                 <TableRow>
                                                     <TableRowColumn>{issue.date}</TableRowColumn>
                                                     <TableRowColumn>{issue.issue}</TableRowColumn>
@@ -112,7 +112,7 @@ class SenatePage extends Component {
                     </Tab>
                 </Tabs>
                 {/*<p className="App-intro">*/}
-                    {/*This is page is all about the senate.*/}
+                {/*This is page is all about the senate.*/}
                 {/*</p>*/}
                 <pre>/senate</pre>
             </div>
