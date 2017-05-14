@@ -7,5 +7,4 @@ function scaffoldNexmo(app) {
     });
 }
 
-
 module.exports = scaffoldNexmo;
