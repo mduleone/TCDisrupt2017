@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {get} from '../api/common';
 import {Tabs, Tab} from 'material-ui/Tabs'
 import {
     Table,
@@ -15,51 +16,29 @@ import {Link} from 'react-router-dom';
 import './styles/senate.css';
 
 class SenatePage extends Component {
+    componentDidMount() {
+        get('http://localhost:3001/api/senate?userId=1234')
+            .then(reps => {
+                console.log(reps);
+                this.setState({reps});
+            });
+        get('http://localhost:3001/api/senate/issues?userId=1234')
+            .then(issues => {
+                console.log(issues);
+                this.setState({issues});
+            });
+    }
+
     static contextTypes = {
         router: PropTypes.object,
     };
 
     render() {
-        const someSenators = [
-            {
-                "id": "1",
-                "state": "NJ",
-                "displayName": "John Doe",
-                "grade": 33.3,
-                "party": "Democrat"
-            }, {
-                "id": "2",
-                "state": "NJ",
-                "displayName": "Mary Sew",
-                "grade": 88.8,
-                "party": "Republican"
-            }, {
-                "id": "3",
-                "state": "NJ",
-                "displayName": "Tony Danza",
-                "grade": 28.6,
-                "party": "Democrat"
-            }
-        ];
+        const reps = (this.state && this.state.reps) ? this.state.reps : [];
+        console.log('reps', reps);
 
-        const someIssues = [
-            {
-                "date": "2017-03-30",
-                "issue": "HR-124",
-                "question": "What if all the raindrops were gum drops and lemon drops?",
-                "result": "Confirmed"
-            }, {
-                "date": "2017-03-30",
-                "issue": "HR-224",
-                "question": "What's the difference between a chicken?",
-                "result": "Confirmed"
-            }, {
-                "date": "2017-03-30",
-                "issue": "HR-324",
-                "question": "In your opinion, how much does an orange?",
-                "result": "Confirmed"
-            }
-        ];
+        const issues = (this.state && this.state.issues) ? this.state.issues: [];
+        console.log('issues', issues);
 
         return (
             <div className="App">
@@ -79,7 +58,7 @@ class SenatePage extends Component {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody displayRowCheckbox={false}>
-                                    {someSenators.map( (rep) => {
+                                    {reps.map( (rep) => {
                                         return (
                                             <TableRow key={rep.id} className={(rep.party === 'Republican') ? 'row-republican' : 'row-democrat'}>
                                                 <TableRowColumn>{rep.state}</TableRowColumn>
@@ -104,11 +83,11 @@ class SenatePage extends Component {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody displayRowCheckbox={false}>
-                                    {someIssues.map( (issue) => {
+                                    {issues.map( (issue) => {
                                         return (
-                                            <TableRow key={issue.issue}>
-                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.date}</Link></TableRowColumn>
-                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.issue}</Link></TableRowColumn>
+                                            <TableRow key={issue.id}>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.voteDate}</Link></TableRowColumn>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.id}</Link></TableRowColumn>
                                                 <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.question}</Link></TableRowColumn>
                                                 <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.result}</Link></TableRowColumn>
                                             </TableRow>
