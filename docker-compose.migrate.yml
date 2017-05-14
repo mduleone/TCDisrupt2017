@@ -1,0 +1,18 @@
+version: "2"
+services:
+  pg_liquibase:
+    image: beresfordt/pg-liquibase-update
+    container_name: liquibase
+    depends_on:
+      - postgres_db
+    links:
+      - postgres_db
+    volumes:
+      - "./_build/migrations/changeLogs:/changelogs"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=ssoauthndb
+      - POSTGRES_HOST=postgres_db
+      - POSTGRES_PORT=5432
+      - CHANGELOG_FILE=master.yml
