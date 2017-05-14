@@ -1,0 +1,226 @@
+swagger: '2.0'
+info:
+  title: Rate My Rep
+  description: You won't get away with this Gadget?
+  version: "1.0.0"
+# the domain of the service
+host: localfuckinghost
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /
+produces:
+  - application/json
+paths:
+  /rep/{repId}/reportcard:
+    get:
+      parameters:
+        - $ref: '#/parameters/pathRepId'
+        - $ref: '#/parameters/queryUserId'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/ReportCard'
+  /bill/{billId}/react:
+    post:
+      parameters:
+        - $ref: '#/parameters/pathBillId'
+        - $ref: '#/parameters/bodyReaction'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Bill'
+
+parameters:
+  pathRepId:
+    name: repId
+    in: path
+    description: Who's that douchebag?
+    required: true
+    type: string
+    format: uuid
+  queryUserId:
+    name: userId
+    in: query
+    description: whodis?
+    required: true
+    type: string
+    format: uuid
+  pathBillId:
+    name: billId
+    in: path
+    description: whattaboot?
+    required: true
+    type: string
+    format: uuid
+  bodyReaction:
+    name: body
+    in: body
+    description: payload
+    required: true
+    schema:
+      $ref: "#/definitions/BillVoteUserReaction"
+
+definitions:
+  Representative:
+    type: object
+    required:
+      - id
+      - firstName
+      - lastName
+      - tenureStartDate
+    properties:
+      id:
+        type: string
+        format: uuid
+      firstName:
+        type: string
+      lastName:
+        type: string
+      partyAffiliation:
+        type: string
+        enum:
+          - D
+          - R
+          - L
+          - I
+      title:
+        type: string
+        enum:
+         - Senator
+         - Congressman
+      state:
+        type: string
+      district:
+        type: number
+      tenureStartDate:
+        type: string
+        format: date
+      nextElectionDate:
+        type: string
+        format: date
+  Bill:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      question:
+        type: string
+      description:
+        type: string
+      result:
+        type: string
+        enum:
+          - passed
+          - failed
+      name:
+        type: string
+        enum:
+         - gun-rights
+      voteDate:
+        type: string
+        format: date
+  RepBillVote:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      billId:
+        type: string
+        format: uuid
+      repId:
+        type: string
+        format: uuid
+      vote:
+        type: string
+        enum:
+          - Yay
+          - Nay
+          - Abstain
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      phoneNumber:
+        type: string
+  BillVoteUserReaction:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      userId:
+        type: string
+        format: uuid
+      billId:
+        type: string
+        format: uuid
+      vote:
+        type: string
+        enum:
+          - Yay
+          - Nay
+          - Abstain
+      importance:
+        type: number
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+  FlatBillVoteReaction:
+    type: object
+    properties:
+      bill:
+        $ref: '#/definitions/Bill'
+      repVote:
+        $ref: '#/definitions/RepBillVote'
+      billVoteReation:
+        $ref: '#/definitions/BillVoteUserReaction'
+  ReportCard:
+    type: object
+    properties:
+      representative:
+        $ref: '#/definitions/Representative'
+      meta:
+        type: object
+        properties:
+          grade:
+            type: string
+            enum:
+              - A+
+              - A
+              - A-
+              - B+
+              - B
+              - B-
+              - C+
+              - C
+              - C-
+              - D+
+              - D
+              - D-
+              - F
+          totalVotes:
+            type: number
+          numMeaningfulVotes:
+            type: number
+          numAgree:
+            type: number
+          numDisagree:
+            type: number
+      repBillVotes:
+        type: array
+        items:
+          $ref: '#/definitions/FlatBillVoteReaction'
+
