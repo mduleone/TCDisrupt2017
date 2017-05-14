@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {get} from '../api/common';
 import {Tabs, Tab} from 'material-ui/Tabs'
 import {
     Table,
@@ -28,6 +29,14 @@ import './styles/house.css';
 
 
 class HousePage extends Component {
+    componentDidMount() {
+        get('http://localhost:3001/api/house')
+            .then(data => {
+                console.log(data);
+                this.setState({data});
+            });
+    }
+
     render() {
         const someCongressors = [
             {
