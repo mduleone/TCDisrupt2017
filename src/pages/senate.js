@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Tabs, Tab} from 'material-ui/Tabs'
 import {
     Table,
@@ -14,23 +15,30 @@ import {Link} from 'react-router-dom';
 import './styles/senate.css';
 
 class SenatePage extends Component {
+    static contextTypes = {
+        router: PropTypes.object,
+    };
+
     render() {
         const someSenators = [
             {
-                "state": "nj",
-                "name": "John Doe",
+                "id": "1",
+                "state": "NJ",
+                "displayName": "John Doe",
                 "grade": 33.3,
-                "party": "R"
+                "party": "Democrat"
             }, {
-                "state": "nj",
-                "name": "Mary Sew",
+                "id": "2",
+                "state": "NJ",
+                "displayName": "Mary Sew",
                 "grade": 88.8,
-                "party": "D"
+                "party": "Republican"
             }, {
-                "state": "nj",
-                "name": "Tony Danza",
+                "id": "3",
+                "state": "NJ",
+                "displayName": "Tony Danza",
                 "grade": 28.6,
-                "party": "R"
+                "party": "Democrat"
             }
         ];
 
@@ -52,6 +60,7 @@ class SenatePage extends Component {
                 "result": "Confirmed"
             }
         ];
+
         return (
             <div className="App">
                 <div className="App-header">
@@ -72,9 +81,9 @@ class SenatePage extends Component {
                                 <TableBody displayRowCheckbox={false}>
                                     {someSenators.map( (rep) => {
                                         return (
-                                            <TableRow key={rep.name} className={(rep.party === 'R') ? 'row-republican' : 'row-democrat'}>
+                                            <TableRow key={rep.id} className={(rep.party === 'Republican') ? 'row-republican' : 'row-democrat'}>
                                                 <TableRowColumn>{rep.state}</TableRowColumn>
-                                                <TableRowColumn>{rep.name}</TableRowColumn>
+                                                <TableRowColumn>{rep.displayName}</TableRowColumn>
                                                 <TableRowColumn>{rep.grade}</TableRowColumn>
                                             </TableRow>
                                         );
@@ -97,14 +106,12 @@ class SenatePage extends Component {
                                 <TableBody displayRowCheckbox={false}>
                                     {someIssues.map( (issue) => {
                                         return (
-                                            <Link key={issue.issue} to={`/issue/${issue.issue}`}>
-                                                <TableRow>
-                                                    <TableRowColumn>{issue.date}</TableRowColumn>
-                                                    <TableRowColumn>{issue.issue}</TableRowColumn>
-                                                    <TableRowColumn>{issue.question}</TableRowColumn>
-                                                    <TableRowColumn>{issue.result}</TableRowColumn>
-                                                </TableRow>
-                                            </Link>
+                                            <TableRow key={issue.issue}>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.date}</Link></TableRowColumn>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.issue}</Link></TableRowColumn>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.question}</Link></TableRowColumn>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.result}</Link></TableRowColumn>
+                                            </TableRow>
                                         );
                                     })}
                                 </TableBody>

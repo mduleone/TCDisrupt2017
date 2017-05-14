@@ -26,7 +26,7 @@ class IssuePage extends Component {
 
         const issueId = this.props.match.params.issueId;
 
-        let thisIssue = someIssues.filter((issue) => (issue.issue == issueId))[0];
+        let thisIssue = someIssues.filter((issue) => (issue.issue === issueId))[0];
         return (
             <div className="App">
                 <div className="App-header">
