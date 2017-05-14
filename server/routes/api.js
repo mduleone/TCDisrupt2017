@@ -1,6 +1,6 @@
 const Router = require('express').Router;
 
-function receiveDb(app) {
+function apiRoutes(app) {
     const routes = new Router();
 
     routes.get('/:userId', (req, res) => {
@@ -16,4 +16,4 @@ function receiveDb(app) {
     return routes;
 }
 
-module.exports = receiveDb;
+module.exports = apiRoutes;

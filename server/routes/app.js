@@ -1,6 +1,6 @@
 const Router = require('express').Router;
 
-function scaffoldApp(app) {
+function appRoutes(app) {
     const routes = new Router();
 
     routes.get('/healthz', (req, res) => {
@@ -15,4 +15,4 @@ function scaffoldApp(app) {
 }
 
 
-module.exports = scaffoldApp;
+module.exports = appRoutes;

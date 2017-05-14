@@ -1,6 +1,6 @@
 const Router = require('express').Router;
 
-function scaffoldNexmo(app) {
+function nexmoRoutes(app) {
     const routes = new Router();
 
     routes.get('/testSend', (req, res) => {
@@ -41,4 +41,4 @@ function scaffoldNexmo(app) {
     return routes
 }
 
-module.exports = scaffoldNexmo;
+module.exports = nexmoRoutes;
