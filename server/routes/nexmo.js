@@ -7,7 +7,7 @@ function nexmoRoutes(app) {
 
     routes.get('/test', (req, res) => {
         app.nexmo.message.sendSms(
-            '12035338311', '18565773772', 'hello from nexmo, bitches.',
+            app.env.NEXMO_FROM_NUMBER, app.env.DEMO_PHONE_NUMBER, 'hello from nexmo, bitches.',
             (err, responseData) => {
                 if (err) {
                     console.log(err);
@@ -87,7 +87,7 @@ How would you have voted?
 Reply 'Y' for ${issue.options.find(el => el.key === '+').value}, 'N' for ${issue.options.find(el => el.key === '-').value}`;
 
         app.nexmo.message.sendSms(
-            '12035338311', app.env.DEMO_PHONE_NUMBER, message,
+            app.env.NEXMO_FROM_NUMBER, app.env.DEMO_PHONE_NUMBER, message,
             (err, responseData) => {
                 if (err) {
                     console.log(err);
@@ -100,7 +100,7 @@ Reply 'Y' for ${issue.options.find(el => el.key === '+').value}, 'N' for ${issue
         );
     });
 
-    function getZipCode(zipcode, fromNumber, app) {
+    function getZipCode(zipcode, fromNumber) {
         pubnub = new PubNub({
             publishKey : app.env.PUB_NUB_PUB_KEY,
             subscribeKey : app.env.PUB_NUM_SUB_KEY
@@ -143,7 +143,7 @@ Reply 'Y' for ${issue.options.find(el => el.key === '+').value}, 'N' for ${issue
                         const reps = response.results.map((rep, i) => `${rep.chamber === 'house' ? 'Rep' : 'Sen'} ${rep.first_name} ${rep.last_name}`).join('\n  • ');
 
                         app.nexmo.message.sendSms(
-                            '12035338311', fromNumber, //'447380261953',
+                            app.env.NEXMO_FROM_NUMBER, fromNumber, //'447380261953',
                             `Trump The Pigs!\n\nPigs! What are they good for?\nNothing!\n\nWe heard from PubNub, who heard from Esri that you live in:\n\n${city}, ${state}.\n\nYour DC Reps:\n  • ${reps}\n\nWe'll keep an eye on the swine, and check in with you when votes happen.\n\nOf the people, by the people, FOR THE PEOPLE!`,
                             {type: 'unicode'},
                             (err, responseData) => {
@@ -180,7 +180,7 @@ Reply 'Y' for ${issue.options.find(el => el.key === '+').value}, 'N' for ${issue
             const lowerText = params.text.toLowerCase();
             if (lowerText === 'n' || lowerText === 'y') {
                 app.nexmo.message.sendSms(
-                    '12035338311', params.msisdn, 'Thanks for helping to make some bacon!\n\nCheck out how your representatives voted at http://trumpthepigs.com', {type: 'unicode'},
+                    app.env.NEXMO_FROM_NUMBER, params.msisdn, 'Thanks for helping to make some bacon!\n\nCheck out how your representatives voted at http://trumpthepigs.com', {type: 'unicode'},
                     (err, responseData) => {
                         if (err) {
                             console.log(err);
