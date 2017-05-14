@@ -67,6 +67,9 @@ function getServedPath(appPackageJson) {
 module.exports = {
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
+  appStatic: resolveApp('build/static'),
+  appBuildServer: resolveApp('build/server'),
+  server: resolveApp('server'),
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveApp('src/index.js'),
   appPackageJson: resolveApp('package.json'),
@@ -74,6 +77,9 @@ module.exports = {
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveApp('src/setupTests.js'),
   appNodeModules: resolveApp('node_modules'),
+  ownNodeModules: resolveApp('node_modules'),
+  serverNodeModules: resolveApp('build/server/node_modules'),
+  envVars: resolveApp('./.env'),
   nodePaths: nodePaths,
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json'))
