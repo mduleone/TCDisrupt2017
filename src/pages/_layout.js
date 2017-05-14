@@ -20,7 +20,7 @@ export default class Layout extends Component {
         return (
             <div id="app-container">
                 <CommonStyles />
-                <AppBar title="Scaffolded App Title"
+                <AppBar title="Pierce The Veil"
                         onLeftIconButtonTouchTap={this.toggleMenu} />
                 <Drawer className="nav-bar"
                         docked={false}
@@ -32,6 +32,18 @@ export default class Layout extends Component {
                     </Link>
                     <Link to="/other" onClick={this.closeMenu}>
                         <MenuItem>Other Page</MenuItem>
+                    </Link>
+                    <Link to="/senate" onClick={this.closeMenu}>
+                        <MenuItem>Senate</MenuItem>
+                    </Link>
+                    <Link to="/house" onClick={this.closeMenu}>
+                        <MenuItem>House of Representatives</MenuItem>
+                    </Link>
+                    <Link to="/state/nj" onClick={this.closeMenu}>
+                        <MenuItem>NJ Legislature</MenuItem>
+                    </Link>
+                    <Link to="/about" onClick={this.closeMenu}>
+                        <MenuItem>About Us</MenuItem>
                     </Link>
                 </Drawer>
                 <div id="app-content">
