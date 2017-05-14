@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - logicalFilePath: _build/migrations/changeLogs/add_user_issue_reactions_table.yml
+
+  - changeSet:
+    id: create_type_importance_enum
+    author: jviolago
+    changes:
+      - sql: CREATE TYPE importance_enum AS ENUM (0,1,2,3,4,5)
+
+  - changeSet:
+    id: add_user_issue_reactions_table
+    author: jviolago
+    changes:
+      - createTable:
+        columns:
+        - column:
+          name: id
+          type: uuid
+          constraints:
+            nullable: false
+            primaryKey: true
+        - column:
+          name: issueId
+          type: uuid
+          constraints:
+            nullable: false
+        - column:
+          name: userId
+          type: uuid
+          constraints:
+            nullable: false
+        - column:
+          name: vote
+          type: boolean
+        - column:
+          name: importance
+          type: importance_enum
+        tableName: user_issue_reactions

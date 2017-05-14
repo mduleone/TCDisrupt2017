@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+    id: create_ext_citext
+    author: jviolago
+    changes:
+      - sql: CREATE EXTENSION IF NOT EXISTS citext;
+    rollback:
+      - sql: DROP EXTENSION IF EXISTS citext;

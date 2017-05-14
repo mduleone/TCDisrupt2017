@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - logicalFilePath: _build/migrations/changeLogs/add_reps_table.yml
+
+  - changeSet:
+    id: create_type_party_enum
+    author: jviolago
+    changes:
+      - sql: CREATE TYPE party_enum AS ENUM ('D','R','L','I')
+
+  - changeSet:
+    id: create_type_title_enum
+    author: jviolago
+    changes:
+      - sql: CREATE TYPE title_enum AS ENUM ('Senator','Representative')
+
+  - changeSet:
+    id: add_reps_table
+    author: jviolago
+    changes:
+      - createTable:
+        columns:
+        - column:
+          name: id
+          type: uuid
+          constraints:
+            nullable: false
+            primaryKey: true
+        - column:
+          name: first_name
+          type: text
+          constraints:
+            nullable: false
+        - column:
+          name: last_name
+          type: text
+          constraints:
+            nullable: false
+        - column:
+          name: party_affiliation
+          type: party_enum
+          constraints:
+            nullable: false
+        - column:
+          name: title
+          type: title_enum
+          constraints:
+            nullable: false
+        - column:
+          name: state
+          type: text
+          constraints:
+            nullable: false
+        - column:
+          name: district
+          type: int
+          constraints:
+            nullable: false
+        - column:
+          name: tenure_start_date
+          type: TIMESTAMP
+          defaultValueComputed: CURRENT_TIMESTAMP
+        - column:
+          name: next_election_date
+          type: TIMESTAMP
+          defaultValueComputed: CURRENT_TIMESTAMP
+        tableName: reps

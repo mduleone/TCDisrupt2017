@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - logicalFilePath: _build/migrations/changeLogs/add_issues_table.yml
+
+  - changeSet:
+    id: create_type_result_enum
+    author: jviolago
+    changes:
+      - sql: CREATE TYPE result_enum AS ENUM ('passed','failed')
+
+  - changeSet:
+    id: add_issues_table
+    author: jviolago
+    changes:
+      - createTable:
+        columns:
+        - column:
+          name: id
+          type: uuid
+          constraints:
+            nullable: false
+            primaryKey: true
+        - column:
+          name: question
+          type: text
+          constraints:
+            nullable: false
+        - column:
+          name: description
+          type: text
+          constraints:
+            nullable: false
+        - column:
+          name: result
+          type: result_enum
+          constraints:
+            nullable: false
+        - column:
+          name: external_link
+          type: text
+          constraints:
+            nullable: false
+        - column:
+          name: vote_date
+          type: TIMESTAMP
+          defaultValueComputed: CURRENT_TIMESTAMP
+        tableName: issues
