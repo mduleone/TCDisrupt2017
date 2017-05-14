@@ -30,9 +30,6 @@ export default class Layout extends Component {
                     <Link to="/" onClick={this.closeMenu}>
                         <MenuItem>Home</MenuItem>
                     </Link>
-                    <Link to="/other" onClick={this.closeMenu}>
-                        <MenuItem>Other Page</MenuItem>
-                    </Link>
                     <Link to="/senate" onClick={this.closeMenu}>
                         <MenuItem>Senate</MenuItem>
                     </Link>
