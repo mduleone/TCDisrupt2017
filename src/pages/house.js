@@ -101,10 +101,10 @@ class HousePage extends Component {
                                     {issues.map( (issue) => {
                                         return (
                                             <TableRow key={issue.id}>
-                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.voteDate}</Link></TableRowColumn>
-                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.id}</Link></TableRowColumn>
-                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.question}</Link></TableRowColumn>
-                                                <TableRowColumn><Link className="u-full-width" to={`/issue/${issue.issue}`}>{issue.result}</Link></TableRowColumn>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/house/${issue.id}`}>{issue.voteDate}</Link></TableRowColumn>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/house/${issue.id}`}>{issue.id}</Link></TableRowColumn>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/house/${issue.id}`}>{issue.question}</Link></TableRowColumn>
+                                                <TableRowColumn><Link className="u-full-width" to={`/issue/house/${issue.id}`}>{issue.result}</Link></TableRowColumn>
                                             </TableRow>
                                         );
                                     })}
