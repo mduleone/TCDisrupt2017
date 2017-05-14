@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const app = express();
 
-const port = (process && process.env && process.env.port) ? process.env.port : 3001;
+const port = (process && process.env && process.env.PORT) ? process.env.PORT : 3001;
 
 scaffoldRoutes(app);
 
